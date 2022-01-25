@@ -10,17 +10,18 @@ import { HistoricalChart } from "../config/api";
 import { CryptoState } from "../CryptoContext";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
-import {chartDays} from "../config/data";
+import { chartDays } from "../config/data";
 import SelectButton from "./SelectButton";
 
 const Coininfo = ({ coin }) => {
   const [historicData, setHistoricData] = useState();
   const [days, setDays] = useState(1);
-
+  const [flag, setflag] = useState(false);
   const { currency } = CryptoState();
 
   const fetchHistoryData = async () => {
     const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
+    setflag(true);
     setHistoricData(data.prices);
   };
 
@@ -65,7 +66,7 @@ const Coininfo = ({ coin }) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.container}>
-        {!historicData ? (
+        {!historicData | (flag === false) ? (
           <CircularProgress
             style={{ color: "gold" }}
             size={250}
@@ -103,7 +104,10 @@ const Coininfo = ({ coin }) => {
               {chartDays.map((day) => (
                 <SelectButton
                   key={day.value}
-                  onClick={() => setDays(day.value)}
+                  onClick={() => {
+                    setDays(day.value);
+                    setflag(false);
+                  }}
                   selected={day.value === days}
                 >
                   {day.label}

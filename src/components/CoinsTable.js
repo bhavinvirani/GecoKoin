@@ -94,7 +94,7 @@ const CoinsTable = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Container maxWidth="md" style={{ textAlign: "center" }}>
+      <Container maxWidth="lg" style={{ textAlign: "center" }}>
         <Typography
           variant="h5"
           style={{ margin: 18}}
