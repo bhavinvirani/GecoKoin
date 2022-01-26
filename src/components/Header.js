@@ -13,6 +13,8 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { CryptoState } from "../CryptoContext";
+import AuthModel from "./Authentication/AuthModel";
+import UserSidebar from "./UserSidebar";
 
 const useStyle = makeStyles(() => ({
   title: {
@@ -27,7 +29,7 @@ const Header = () => {
   const classes = useStyle();
   const navigate = useNavigate();
 
-  const { currency, setCurrency } = CryptoState();
+  const { currency, setCurrency, user } = CryptoState();
 
   const darkTheme = createTheme({
     palette: {
@@ -60,6 +62,7 @@ const Header = () => {
               <MenuItem value={"USD"}>USD</MenuItem>
               <MenuItem value={"INR"}>INR</MenuItem>
             </Select>
+            {user ? <UserSidebar /> :<AuthModel />}
           </Toolbar>
         </Container>
       </AppBar>

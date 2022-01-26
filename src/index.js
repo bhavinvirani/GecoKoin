@@ -10,6 +10,6 @@ ReactDOM.render(
     <CryptoContext>
       <App />
     </CryptoContext>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
+  ,document.getElementById("root")
 );
