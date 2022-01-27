@@ -10,11 +10,11 @@ const SelectButton = ({ children, selected, onClick }) => {
       paddingLeft: 20,
       paddingRight: 20,
       cursor: "pointer",
-      backgroundColor: selected ? "#ECB365" : "",
+      backgroundColor: selected ? "#6579ec" : "",
       color: selected ? "black" : "",
       fontWeight: selected ? 700 : 500,
       "&:hover": {
-        backgroundColor: "#ECB365",
+        backgroundColor: "#6579ec",
         color: "black",
       },
       width: "22%",

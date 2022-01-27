@@ -13,6 +13,7 @@ import Coininfo from "../components/Coininfo";
 import { numberWithCommas } from "../components/Banner/Carousel";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+// import add from "../components/Watchlist/Watchlist";
 
 const Coinpage = () => {
   const { id } = useParams();
@@ -27,6 +28,7 @@ const Coinpage = () => {
     fetchCoin();
   }, []);
 
+  //TODO: add in saparte file
   const useStyle = makeStyles((theme) => ({
     container: {
       display: "flex",
@@ -82,6 +84,7 @@ const Coinpage = () => {
   const classes = useStyle();
 
   const inWatchlist = watchlist.includes(coin?.id);
+
   const addToWatchlist = async () => {
     const coinRef = doc(db, "watchlist", user.uid);
     try {
@@ -131,7 +134,7 @@ const Coinpage = () => {
     }
   };
 
-  if (!coin) return <LinearProgress style={{ backgroundColor: "#D65A31" }} />;
+  if (!coin) return <LinearProgress style={{ backgroundColor: "#7918f2" }} />;
 
   return (
     <div className={classes.container}>

@@ -8,7 +8,11 @@ import Login from "./Login";
 import Signup from "./Signup";
 import GoogleButton from "react-google-button";
 import GithubButton from "react-github-login-button";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 import CryptoContext, { CryptoState } from "../../CryptoContext";
 
@@ -28,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     width: 85,
     height: 40,
-    backgroundColor: "#ECB365",
+    backgroundColor: "rgb(108, 242, 96)",
   },
   OAuthButtons: {
     padding: 24,
@@ -83,7 +87,29 @@ export default function AuthModel() {
       });
   };
 
-  const signInWithGithub = () => {};
+  let Githubrovider = new GithubAuthProvider();
+  function signInWithGithub() {
+ 
+      signInWithPopup(auth, Githubrovider)
+      .then((res) => {
+        console.log(res);
+
+        setAlert({
+          open: true,
+          message: `${res.operationType} Successful`,
+          type: "success",
+        });
+        handleClose();
+      })
+      .catch((error) => {
+        setAlert({
+          open: true,
+          message: error.message,
+          type: "error",
+        });
+        return;
+      });
+  }
 
   return (
     <div>

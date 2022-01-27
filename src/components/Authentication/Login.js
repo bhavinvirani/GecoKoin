@@ -19,6 +19,7 @@ const Login = ({ handleClose }) => {
         type: "error",
       });
       return;
+      
     } else if (!validateEmail(email)) {
       setAlert({
         open: true,

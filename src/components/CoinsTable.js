@@ -1,4 +1,5 @@
 import {
+  Checkbox,
   Container,
   createTheme,
   LinearProgress,
@@ -14,12 +15,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CoinList } from "../config/api";
 import { CryptoState } from "../CryptoContext";
 import { numberWithCommas } from "./Banner/Carousel";
+import { AiOutlineRise, AiOutlineFall } from "react-icons/ai";
+import Columns from "./util/MainTableHeader";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 // ---------------------------------------------------------------------
 
@@ -31,20 +34,98 @@ const useStyle = makeStyles(() => ({
       backgroundColor: "#131111",
     },
   },
+  tableHead: {
+    backgroundImage:
+      "linear-gradient(-225deg, #ac32e4 0%, #7918f2 50%, #4801fe 100%)",
+  },
 }));
 
 const CoinsTable = () => {
-  // const [coins, setCoins] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const { currency, symbol, coins, loading, fetchCoins } = CryptoState();
+
+  const {
+    currency,
+    symbol,
+    coins,
+    loading,
+    fetchCoins,
+    user,
+    watchlist,
+    setAlert,
+  } = CryptoState();
 
   const classes = useStyle();
   const navigate = useNavigate();
 
-  
+  //*  Watchlist -----------------------------------------------------
+  const remove = async (coin) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      //* update to firebase DB
+      await setDoc(
+        coinRef,
+        {
+          coins: watchlist.filter((watch) => watch !== coin?.id),
+        },
+        //* true to update on firebase
+        { merge: "true" }
+      );
 
+      setAlert({
+        open: true,
+        message: `${coin.name} Removed from Watchlist !!`,
+        type: "success",
+      });
+    } catch (error) {
+      console.log(error);
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
+
+  const add = async (coin) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(coinRef, {
+        coins: watchlist ? [...watchlist, coin?.id] : [coin?.id],
+      });
+      setAlert({
+        open: true,
+        message: `${coin.name} Added to Watchlist`,
+        type: "success",
+      });
+    } catch (error) {
+      console.log(error);
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
+
+  const handleWishlist = (coin) => {
+    if (user) {
+      const inWatchlist = watchlist.includes(coin?.id);
+      if (inWatchlist) {
+        remove(coin);
+      } else {
+        add(coin);
+      }
+    } else {
+      setAlert({
+        open: true,
+        message: "Plese Login to use Watchlist Feature",
+        type: "error",
+      })
+    }
+  };
+
+  //-------------------------------------------------
   useEffect(() => {
     fetchCoins();
   }, [currency]);
@@ -67,32 +148,12 @@ const CoinsTable = () => {
     );
   };
 
-  const columns = [
-    { id: "coin", label: "Coin", minWidth: 170 },
-    { id: "price", label: "Price", minWidth: 100 },
-    {
-      id: "24h_change",
-      label: "24h change",
-      //   minWidth: 170,
-      //   align: "right",
-      //   format: (value) => value.toLocaleString("en-US"),
-    },
-    {
-      id: "market_cap",
-      label: "Market Cap",
-      //   minWidth: 170,
-      //   align: "right",
-      //   format: (value) => value.toLocaleString("en-US"),
-    },
-  ];
+  // console.log("table", coins[0]);
 
   return (
     <ThemeProvider theme={darkTheme}>
       <Container maxWidth="lg" style={{ textAlign: "center" }}>
-        <Typography
-          variant="h5"
-          style={{ margin: 18}}
-        >
+        <Typography variant="h5" style={{ margin: 18 }}>
           Cryptocurrency Prices
         </Typography>
         <TextField
@@ -103,18 +164,20 @@ const CoinsTable = () => {
         />
         <TableContainer>
           {loading ? (
-            <LinearProgress style={{ backgroundColor: "#D65A31" }} />
+            <LinearProgress style={{ backgroundColor: "#7918f2" }} />
           ) : (
             <Table>
-              <TableHead style={{ backgroundColor: "#24A19C" }}>
+              <TableHead className={classes.tableHead}>
                 <TableRow>
-                  {columns.map((column) => (
+                  {Columns.map((column) => (
                     <TableCell
                       key={column.id}
-                      align={column.id === "coin" ? "" : "right"}
+                      align={column.id === "coin" ? "" : "center"}
                       style={{
-                        color: "black",
+                        color: "#151515",
                         fontWeight: "700",
+                        maxWidht: column.maxWidth,
+                        minWidht: column.minWidth,
                       }}
                     >
                       {column.label}
@@ -122,11 +185,12 @@ const CoinsTable = () => {
                   ))}
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {handleSearch()
                   .slice((page - 1) * 15, (page - 1) * 15 + 15)
                   .map((row) => {
-                    // console.log(row)
+                    // console.log("here",row)
                     let profit = row.price_change_percentage_24h > 0;
                     return (
                       <TableRow
@@ -134,6 +198,18 @@ const CoinsTable = () => {
                         key={row.name}
                         onClick={() => navigate(`/coins/${row.id}`)}
                       >
+                        <TableCell align="center">
+                          {
+                            <Checkbox
+                              checked={watchlist.includes(row?.id)}
+                              onChange={(e) => handleWishlist(row)}
+                              size="small"
+                              color="default"
+                              style={{ paddingBottom: 10, marginRight: 5 }}
+                            />
+                          }
+                          {row.market_cap_rank}
+                        </TableCell>
                         <TableCell
                           component="th"
                           scop="row"
@@ -161,26 +237,44 @@ const CoinsTable = () => {
                             </span>
                           </div>
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">
                           {symbol}{" "}
                           {numberWithCommas(row.current_price.toFixed(2))}
                         </TableCell>
-                        <TableCell
-                          align="right"
-                          style={{
-                            color: profit > 0 ? "rgb(14, 203, 129)" : "red",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {profit && "+"}
-                          {row.price_change_percentage_24h.toFixed(2)}%
-                        </TableCell>
-                        <TableCell align="right">
+
+                        <TableCell align="center">
                           {symbol}{" "}
                           {numberWithCommas(
                             row.market_cap.toString().slice(0, -6)
                           )}
                           M
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          style={{
+                            color: profit > 0 ? "#70a338" : "#ae3b2e",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {profit && "+"}
+                          {row.price_change_percentage_24h.toFixed(2)}%
+                          {profit ? (
+                            <AiOutlineRise
+                              style={{ paddingLeft: "3px" }}
+                              size={20}
+                            />
+                          ) : (
+                            <AiOutlineFall
+                              style={{ paddingLeft: "3px" }}
+                              size={20}
+                            />
+                          )}
+                        </TableCell>
+                        <TableCell align="center">
+                          {symbol} {numberWithCommas(row.low_24h.toFixed(2))}
+                        </TableCell>
+                        <TableCell align="center">
+                          {symbol} {numberWithCommas(row.high_24h.toFixed(2))}
                         </TableCell>
                       </TableRow>
                     );
@@ -190,11 +284,16 @@ const CoinsTable = () => {
           )}
         </TableContainer>
         <Pagination
-          style={{ padding: 20, width: "100%", display: "flex", justifyContent: "center" }}
+          style={{
+            padding: 20,
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
           count={(handleSearch()?.length / 15).toFixed(0)}
           onChange={(_, value) => {
-              setPage(value);
-              window.scroll(0, 465)
+            setPage(value);
+            window.scroll(0, 465);
           }}
         />
       </Container>

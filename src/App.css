@@ -7,6 +7,21 @@
 }
 
 a{
-    text-decoration: none;
-    color: #ECB365;
+    text-decoration: underline;
+    color: #797979;
+    margin: 0 0 0 3px;
+    cursor: pointer;
+}
+.keep{
+    color: rgb(108, 242, 96)
+}
+
+:root{
+
+    --main-background: #121212,
+    --table-header-background: #343a40,
+    --table-header-font-color: #9a938a,
+    --table-price-color: #706f67,
+    --table-price-heigh: #70a338,
+    --table-price-low: #ae3b2e,
 }

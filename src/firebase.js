@@ -10,4 +10,3 @@ export const auth = getAuth(firebaseApp);
 
 // DB
 export const db = getFirestore(firebaseApp);
-

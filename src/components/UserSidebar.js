@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     width: 38,
     marginLeft: 8,
     cursor: "pointer",
-    backgroundColor: "#EEBC1D",
+    backgroundColor: "#7918f2",
   },
   container: {
     widht: 450,
@@ -25,6 +25,7 @@ const useStyles = makeStyles({
     width: 340,
     display: "flex",
     flexDirection: "column",
+    backgroundColor:"#121212"
   },
   profile: {
     flex: 1,
@@ -51,13 +52,13 @@ const useStyles = makeStyles({
   logoutButton: {
     height: "8%",
     widht: "100%",
-    background: "#EEBC1D",
+    background: "#b23b3b",
     marginTop: 20,
   },
   watchlist: {
     flex: 1,
     width: "100%",
-    backgroundColor: "gray",
+    backgroundColor:"#343a40",
     borderRadius: 10,
     padding: 10,
     paddingTop: 10,
@@ -82,13 +83,13 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#EEBC1D",
+    backgroundColor: "#a560fa",
     boxShadow: "0 0 3px black",
   },
 });
 
 export default function UserSidebar() {
-  const { user, setAlert, watchlist, coins, symbol } = CryptoState();
+  const { user, setAlert, watchlist, coins, symbol, setWatchlist } = CryptoState();
   const classes = useStyles();
   const [drawerState, setDrawerState] = useState({
     right: false,
@@ -107,6 +108,7 @@ export default function UserSidebar() {
 
   const logOut = () => {
     signOut(auth);
+    setWatchlist([])
     setAlert({
       open: true,
       type: "success",
