@@ -12,6 +12,7 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { chartDays } from "../config/data";
 import SelectButton from "./SelectButton";
+import CoinBottomInfo from "./Watchlist/CoinBottomInfo";
 
 const Coininfo = ({ coin }) => {
   const [historicData, setHistoricData] = useState();
@@ -58,6 +59,7 @@ const Coininfo = ({ coin }) => {
     buttonDiv: {
       display: "flex",
       marginTop: 20,
+      flexWrap:"wrap" ,
       justifyContent: "space-around",
       width: "100%",
     },
@@ -116,6 +118,7 @@ const Coininfo = ({ coin }) => {
             </div>
           </>
         )}
+      <CoinBottomInfo coin={coin}/>
       </div>
     </ThemeProvider>
   );

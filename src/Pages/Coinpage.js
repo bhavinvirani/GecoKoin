@@ -13,6 +13,7 @@ import Coininfo from "../components/Coininfo";
 import { numberWithCommas } from "../components/Banner/Carousel";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import CoinLeftInfo from "../components/CoinLeftInfo";
 // import add from "../components/Watchlist/Watchlist";
 
 const Coinpage = () => {
@@ -27,6 +28,7 @@ const Coinpage = () => {
   useEffect(() => {
     fetchCoin();
   }, []);
+  console.log(coin?.links?.homepage[0]);
 
   //TODO: add in saparte file
   const useStyle = makeStyles((theme) => ({
@@ -50,15 +52,8 @@ const Coinpage = () => {
     },
     heading: {
       fontWeight: "bold",
-      marginBottom: 20,
-    },
-    description: {
-      width: "100%",
-      padding: 25,
-      paddingBottom: 15,
-      paddingTop: 0,
-      textAlign: "justify",
-      wordSpacing: "1px",
+      marginBottom: 15,
+      fontSize: 35,
     },
     coinData: {
       alignSelf: "start",
@@ -143,69 +138,25 @@ const Coinpage = () => {
         <img
           src={coin?.image.large}
           alt={coin?.name}
-          height="160"
-          style={{ marginBottom: 20 }}
+          height="120"
         />
         <Typography component="h2" variant="h3" className={classes.heading}>
           {coin?.name}
         </Typography>
-        <Typography variant="subtitle1" className={classes.description}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: coin?.description.en.split(". ")[0],
-            }}
-          />
-        </Typography>
+        {/* ///////////////////////////////////////////////////////////////////// */}
+        <CoinLeftInfo coin={coin} />
+        
+
+        
 
         <div className={classes.coinData}>
-          {/* Rank */}
-          <span style={{ display: "flex" }}>
-            <Typography variant="h5" className={classes.heading}>
-              Rank:
-            </Typography>
-            &nbsp; &nbsp;
-            <Typography variant="h6" style={{ color: "lightGray" }}>
-              {numberWithCommas(coin?.market_cap_rank)}
-            </Typography>
-          </span>
-
-          {/* Current Price */}
-          <span style={{ display: "flex" }}>
-            <Typography variant="h5" className={classes.heading}>
-              Current Price:
-            </Typography>
-            &nbsp; &nbsp;
-            <Typography variant="h6" style={{ color: "lightGray" }}>
-              {symbol}{" "}
-              {numberWithCommas(
-                coin?.market_data.current_price[currency.toLowerCase()]
-              )}
-            </Typography>
-          </span>
-
-          {/* Market Cap */}
-          <span style={{ display: "flex" }}>
-            <Typography variant="h5" className={classes.heading}>
-              Market Cap:
-            </Typography>
-            &nbsp; &nbsp;
-            <Typography variant="h6" style={{ color: "lightGray" }}>
-              {symbol}{" "}
-              {numberWithCommas(
-                coin?.market_data.market_cap[currency.toLowerCase()]
-                  .toString()
-                  .slice(0, -6)
-              )}
-              M
-            </Typography>
-          </span>
           {user && (
             <Button
               variant="outlined"
               style={{
                 width: "100%",
                 height: 40,
-                backgroundColor: inWatchlist ? "#AA2232" : "#EEBC1D",
+                backgroundColor: inWatchlist ? "#AA2232" : "#229bf7",
               }}
               onClick={inWatchlist ? removeFromWatchlist : addToWatchlist}
             >

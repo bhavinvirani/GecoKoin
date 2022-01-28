@@ -121,7 +121,7 @@ const CoinsTable = () => {
         open: true,
         message: "Plese Login to use Watchlist Feature",
         type: "error",
-      })
+      });
     }
   };
 

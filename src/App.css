@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100&family=Montserrat:wght@300;400;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 *{
     margin: 0;
     padding: 0;
@@ -7,13 +9,13 @@
 }
 
 a{
-    text-decoration: underline;
-    color: #797979;
+    text-decoration: none;
+    color: #229bf7;
     margin: 0 0 0 3px;
     cursor: pointer;
 }
 .keep{
-    color: rgb(108, 242, 96)
+    color: #e4e4e4
 }
 
 :root{

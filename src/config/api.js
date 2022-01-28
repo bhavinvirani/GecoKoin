@@ -10,6 +10,8 @@ export const HistoricalChart = (id, days = 365, currency) =>
 export const TrendingCoins = (currency) =>
   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=gecko_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h`;
 
+export const Globle = () => `https://api.coingecko.com/api/v3/global`;
+
 //TODO:
 export const TopSearchedCoin = () =>
   `https://api.coingecko.com/api/v3/search/trending`;
@@ -17,6 +19,6 @@ export const TopSearchedCoin = () =>
 export const CategoryList = (category) =>
   `https://api.coingecko.com/api/v3/coins/${category}/list`;
 
-export const Globle = () => `https://api.coingecko.com/api/v3/global`;
-
 export const DefiData =() => `https://api.coingecko.com/api/v3/global/decentralized_finance_defi`
+
+export const Categories = () => `https://api.coingecko.com/api/v3/coins/categories`
