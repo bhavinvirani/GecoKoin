@@ -9,13 +9,15 @@
 }
 
 a{
-    text-decoration: none;
     color: #229bf7;
     margin: 0 0 0 3px;
     cursor: pointer;
 }
 .keep{
     color: #e4e4e4
+}
+::-webkit-scrollbar {
+    display: none;
 }
 
 :root{

@@ -19,7 +19,7 @@ import CoinLeftInfo from "../components/CoinLeftInfo";
 const Coinpage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
-  const { currency, symbol, user, watchlist, setAlert } = CryptoState();
+  const {user, watchlist, setAlert } = CryptoState();
 
   const fetchCoin = async () => {
     const { data } = await axios.get(SingleCoin(id));
@@ -28,7 +28,7 @@ const Coinpage = () => {
   useEffect(() => {
     fetchCoin();
   }, []);
-  console.log(coin?.links?.homepage[0]);
+  // console.log(coin?.links?.homepage[0]);
 
   //TODO: add in saparte file
   const useStyle = makeStyles((theme) => ({

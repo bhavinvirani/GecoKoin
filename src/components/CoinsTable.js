@@ -148,7 +148,6 @@ const CoinsTable = () => {
     );
   };
 
-  // console.log("table", coins[0]);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -190,7 +189,6 @@ const CoinsTable = () => {
                 {handleSearch()
                   .slice((page - 1) * 15, (page - 1) * 15 + 15)
                   .map((row) => {
-                    // console.log("here",row)
                     let profit = row.price_change_percentage_24h > 0;
                     return (
                       <TableRow

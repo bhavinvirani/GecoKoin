@@ -13,9 +13,9 @@ import {
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { CryptoState } from "../CryptoContext";
-import AuthModel from "./Authentication/AuthModel";
-import UserSidebar from "./UserSidebar";
+import { CryptoState } from "../../CryptoContext";
+import AuthModel from "../Authentication/AuthModel";
+import UserSidebar from "../UserSidebar";
 import CodeIcon from "@mui/icons-material/Code";
 
 const useStyle = makeStyles(() => ({
@@ -62,6 +62,18 @@ const Header = () => {
             >
               GecoKoin
             </Typography>
+            <Link
+              style={{
+                marginRight: 22,
+                color: pathname === "/news" ? "#fff" : "gray",
+                textDecoration: "none",
+              }}
+              onClick={() => navigate("/news")}
+            >
+              News{" "}
+            </Link>
+            
+            {pathname !== "/news" && 
             <Select
               variant="outlined"
               lable="Currency"
@@ -74,7 +86,7 @@ const Header = () => {
               <MenuItem value={"EUR"}>EUR</MenuItem>
               <MenuItem value={"GBP"}>GBP</MenuItem>
               <MenuItem value={"CNY"}>CNY</MenuItem>
-            </Select>
+            </Select>}
             {user ? <UserSidebar /> : <AuthModel />}
             {pathname === "/" && (
               <Link

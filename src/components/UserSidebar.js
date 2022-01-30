@@ -36,6 +36,7 @@ const useStyles = makeStyles({
     height: "92%",
   },
   userDeatil: {
+    color: "#fff",
     widht: "1005",
     fontSize: 25,
     textAlign: "center",

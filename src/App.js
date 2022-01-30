@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Coinpage from "./Pages/Coinpage";
 import Homepage from "./Pages/Homepage";
 import React, { Suspense } from "react";
@@ -7,6 +7,7 @@ import "./App.css";
 import { makeStyles } from "@material-ui/core";
 import Alert from "./components/util/Alert";
 import Scroll from "./components/util/Scroll";
+import News from "./components/News/News";
 // import Footer from "./components/Footer/Footer";
 const Footer = React.lazy(() => import("./components/Footer/Footer"));
 
@@ -28,8 +29,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} exact />
           <Route path="/coins/:id" element={<Coinpage />} />
+          <Route path="/news" element={<News />} />
         </Routes>
-        
       </div>
       <Suspense fallback={<div>Loading</div>}>
           <Footer />

@@ -1,10 +1,10 @@
 import { Container, Link, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
-import { numberWithCommas } from "../Banner/Carousel";
+import { numberWithCommas } from "./Banner/Carousel";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { CryptoState } from "../../CryptoContext";
+import { CryptoState } from "../CryptoContext";
 import { display } from "@mui/system";
 
 const useStyle = makeStyles((theme) => ({
@@ -64,9 +64,9 @@ const CoinBottomInfo = ({ coin }) => {
   console.log("link",coin.links.homepage[0])
   return (
     <Container className={classes.container} maxWidth="lg">
-      <div className={classes.mainTitle}>
+      {coin.description.en && <div className={classes.mainTitle}>
         About <Link href={coin.links.homepage[0]}><span style={{color:"#7918f2"}}>{`${coin?.name}`}</span></Link>
-      </div>
+      </div>}
       <div
         className={classes.desc}
         dangerouslySetInnerHTML={{ __html: `${coin.description.en}` }}

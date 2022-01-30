@@ -88,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
 const CoinLeftInfo = ({ coin }) => {
   const classes = useStyles();
   const { symbol, currency } = CryptoState();
+  console.log("coin", coin)
   function currencyFormat(num) {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -160,8 +161,8 @@ const CoinLeftInfo = ({ coin }) => {
               Market Cap
             </Typography>
             <Typography className={classes.cardData} variant="h6">
-              {symbol}
-              {currencyFormat(Number(coin.market_data.market_cap.currency))}
+              $
+              {currencyFormat(Number(coin.market_data.market_cap.usd))}
             </Typography>
           </CardContent>
         </Card>
@@ -171,8 +172,8 @@ const CoinLeftInfo = ({ coin }) => {
               Total Volume
             </Typography>
             <Typography className={classes.cardData} variant="h6">
-              {symbol}
-              {currencyFormat(Number(coin.market_data.total_volume.currency))}
+              $
+              {currencyFormat(Number(coin.market_data.total_volume.usd))}
             </Typography>
           </CardContent>
         </Card>
@@ -182,9 +183,9 @@ const CoinLeftInfo = ({ coin }) => {
               Fully Diluted Market Cap
             </Typography>
             <Typography className={classes.cardData} variant="h6">
-              {symbol}
+              $
               {currencyFormat(
-                Number(coin.market_data.fully_diluted_valuation.currency)
+                Number(coin.market_data.fully_diluted_valuation.usd)
               )}
             </Typography>
           </CardContent>
