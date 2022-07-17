@@ -143,7 +143,7 @@ const Coinpage = () => {
         <Typography component="h2" variant="h3" className={classes.heading}>
           {coin?.name}
         </Typography>
-        {/* ///////////////////////////////////////////////////////////////////// */}
+        
         <CoinLeftInfo coin={coin} />
         
 

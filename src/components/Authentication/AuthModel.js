@@ -14,7 +14,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import CryptoContext, { CryptoState } from "../../CryptoContext";
+import { CryptoState } from "../../CryptoContext";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -136,7 +136,7 @@ export default function AuthModel() {
               position="static"
               style={{ backgroundColor: "transparent", color: "white" }}
             >
-              <Tabs value={value} onChange={handleChange} variant="fullWidth">
+              <Tabs value={value} onChange={handleChange} >
                 <Tab label="Login" />
                 <Tab label="SignUp" />
               </Tabs>
