@@ -3,7 +3,7 @@
   <br>
   <img alt="GecoKoin" src="https://user-images.githubusercontent.com/66407251/179384600-a4b71525-dc28-4b35-aac5-07eab1041987.jpeg" width="200px">
   <h1> GecoKoin </h1>
-  <strong>A cryptocurrency price tracker & monitor app. Show the current value of different digital currencies and tokens in five national currencies.</strong>
+  <strong>A cryptocurrency price tracker that monitors real-time values of various digital currencies and tokens, displaying their prices in multiple national currencies. 🚀</strong>
 </div>
 <br>
 
