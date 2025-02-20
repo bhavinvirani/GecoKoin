@@ -7,26 +7,6 @@
 </div>
 <br>
 
-<p align="center">
-  
-  <a href="https://app.netlify.com/sites/open-sauced/deploys">
-    <img src="https://img.shields.io/netlify/ecc7309d-c3ee-4945-801b-21332ec9b372" alt="Netlify Status">
-  </a>
-  
-  <img src="https://img.shields.io/github/repo-size/bhavinvirani/gecokoin" alt="GitHub repo size in bytes">
-  <a href="https://github.com/open-sauced/open-sauced/issues">
-    <img src="https://img.shields.io/bitbucket/issues/bhavinvirani/GecoKoin" alt="GitHub issues">
-  </a>
-  <a href="https://github.com/open-sauced/open-sauced/releases">
-    <img src="https://img.shields.io/github/v/release/bhavinvirani/gecokoin" alt="GitHub Release">
-  </a> 
-  
-  <a href="https://twitter.com/saucedopen">
-    <img src="https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FBhavinVirani45" alt="Twitter">
-  </a>
-</p>
-
-
 ![Gecokoin](https://user-images.githubusercontent.com/66407251/179385841-a6e2ce4a-fa4f-4719-a727-d89b09691ed2.png)
 
 
